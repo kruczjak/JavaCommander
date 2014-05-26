@@ -1,6 +1,4 @@
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
 import java.io.File;
@@ -15,7 +13,12 @@ public class FileRender extends DefaultListCellRenderer {
         Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
         JLabel l = (JLabel)c;
         File f = (File)value;
-        l.setText(f.getName());
+
+        if (index!=0)
+            l.setText(f.getName());
+        else
+            l.setText("..");
+
         l.setIcon(FileSystemView.getFileSystemView().getSystemIcon(f));
         return l;
     }
