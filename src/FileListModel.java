@@ -7,8 +7,10 @@ import java.util.*;
  */
 public class FileListModel extends AbstractListModel<File> {
     private List<File> files;
+    private JTextField jTextField;
 
-    public FileListModel(String path) {
+    public FileListModel(String path, JTextField jTextField) {
+        this.jTextField = jTextField;
         makeFromPath(path);
     }
 
@@ -20,6 +22,10 @@ public class FileListModel extends AbstractListModel<File> {
     @Override
     public File getElementAt(int i) {
         return files.get(i);
+    }
+
+    public void changePath()    {
+        changePath(jTextField.getText());
     }
 
     public void changePath(String path) {
@@ -35,6 +41,7 @@ public class FileListModel extends AbstractListModel<File> {
         files = new ArrayList<File>(Arrays.asList(filesArray));
         Collections.sort(files, new FileComparator());
         files.add(0,parent);
+        jTextField.setText(path);
     }
 
 }

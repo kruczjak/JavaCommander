@@ -16,7 +16,7 @@ public class FileRender extends DefaultListCellRenderer {
 
         if (index!=0)
             l.setText(f.getName());
-        else
+        else if (f!=null)
             l.setText("..");
 
         l.setIcon(FileSystemView.getFileSystemView().getSystemIcon(f));
