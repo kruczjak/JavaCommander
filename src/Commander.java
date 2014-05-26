@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -23,7 +25,48 @@ public class Commander {
     }
 
     private void init() {
-        
+        list1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount()==2)   {
+                    processClick(model1,list1.locationToIndex(e.getPoint()));
+                }
+            }
+        });
+        list2.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount()==2)   {
+                    processClick(model2,list2.locationToIndex(e.getPoint()));
+                }
+            }
+        });
+
+        list1.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                if (e.getKeyCode()==KeyEvent.VK_ENTER)  {
+                    processClick(model1,list1.getSelectedIndex());
+                }
+            }
+        });
+        list2.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                if (e.getKeyCode()==KeyEvent.VK_ENTER)  {
+                    processClick(model2,list2.getSelectedIndex());
+                }
+            }
+        });
+    }
+
+    private void processClick(FileListModel model, int index) {
+        File clickedFile = model.getElementAt(index);
+        if (clickedFile.isDirectory())  {
+            model.changePath(clickedFile.getPath());
+        } else {
+
+        }
     }
 
     public static void main(String[] args) {
